@@ -21,7 +21,7 @@ Class Usuario
 		}
 	}
 
-	public function cadastrar ($nome, $telefone, $email, $senha)
+	public function cadastrar ($nome, $telefone, $email, $senha, $cep, $rua)
 	{
 		global $pdo;
 
@@ -36,11 +36,13 @@ Class Usuario
 		else
 		{
 			//caso nao, cadastrar
-			$sql = $pdo->prepare("INSERT INTO usuarios (nome, telefone, email, senha) VALUES (:n, :t, :e, :s)");
+			$sql = $pdo->prepare("INSERT INTO usuarios (nome, telefone, email, senha, cep, rua) VALUES (:n, :t, :e, :s, :c, :r)");
 			$sql->bindValue(":n", $nome);
 			$sql->bindValue(":t", $telefone);
 			$sql->bindValue(":e", $email);
 			$sql->bindValue(":s", md5($senha));
+			$sql->bindValue(":c", $cep);
+			$sql->bindValue(":r", $rua);
 			$sql->execute();
 			return true;
 		}
@@ -59,7 +61,7 @@ Class Usuario
 		if($sql->rowCount() > 0)
 		{
 			//entrar no sistema (sessao)
-			$dados = $sql->fetch(FETCH_ASSOC);
+			$dado = $sql->fetch(FETCH_ASSOC);
 			session_start();
 			$_SESSION['id_usuario'] = $dado['id_usuario'];
 			return true; //logado com sucesso!
