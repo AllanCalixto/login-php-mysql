@@ -3,8 +3,12 @@
 session_start();
 if(!isset($_SESSION['id_usuario']))
 {
-	header("location: index.php");
-	exit();
+	echo "Voce entrou !";
+}
+else 
+{
+		header("location: index.php");
+		exit();
 }
 
 
@@ -12,3 +16,4 @@ if(!isset($_SESSION['id_usuario']))
 
 
 SEJAA BEEM VINDOOO !!!!
+<a href="sair.php">Sair</a>
