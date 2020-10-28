@@ -1,3 +1,10 @@
+<?php 
+
+	require_once 'usuarios.php';
+	$u = new Usuario;
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,7 +25,35 @@
 
 	<?php 
 
+if(isset($_POST['nome']))
+	{
+		$email = addslashes($_POST['email']);
+		$senha = addslashes($_POST['senha']);
+	
+		//verificar se os campos foram preenchidos
+		if(!empty($email) && !empty($senha))
+		{
+			$u->conectar("projeto_login", "localhost", "allan", "allanpsg10");
+			if($u->msgErro == "")
+			{
+				if($u->logar($email, $senha))
+				{
+					header("areaPrivada.php");
+				}
 
+			else
+			{
+				echo "Email e/ou senha estão incorretos!";
+			}	
+		}
+		else
+		{
+			echo "Erro: " .$u->msgErro;
+		}	
+		else
+		{
+			echo "Preencha todos os campos!";
+		}	
 	 ?>
 
 	</body>

@@ -45,11 +45,20 @@ $u = new Usuario;
 				{
 					if($u->cadastrar($nome, $telefone, $email, $senha))
 					{
-						echo "Cadastrado com sucesso ! Acesse para entrar !";
+						?>
+						<div id="msg-sucesso">
+							Cadastrado com sucesso ! Acesse para entrar !
+						</div>
+							
+						<?php
 					}
 					else
 					{
-						echo "Email ja cadastrado";
+						?>
+						<div class="msg-erro">
+							Email ja cadastrado
+						</div>	
+						<?php
 					}	
 				}
 				else {
